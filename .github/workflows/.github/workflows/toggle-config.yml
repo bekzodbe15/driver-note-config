@@ -1,6 +1,16 @@
 name: Toggle Config
 
 on:
+name: Toggle Config
+
+on:
+  push:
+  schedule:
+    - cron: '0 8 * * *'
+      timezone: 'Asia/Tashkent'
+    - cron: '0 16 * * *'
+      timezone: 'Asia/Tashkent'
+  workflow_dispatch:
   schedule:
     - cron: '0 8 * * *'
       timezone: 'Asia/Tashkent'
