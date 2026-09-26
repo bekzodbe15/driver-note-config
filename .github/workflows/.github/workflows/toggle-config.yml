@@ -2,14 +2,10 @@ name: Toggle Config
 
 on:
   schedule:
-    # 08:00 по Ташкенту = включить
     - cron: '0 8 * * *'
       timezone: 'Asia/Tashkent'
-
-    # 16:00 по Ташкенту = выключить
     - cron: '0 16 * * *'
       timezone: 'Asia/Tashkent'
-
   workflow_dispatch:
 
 permissions:
@@ -20,10 +16,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Change config
+      - name: Update config
         run: |
           HOUR=$(TZ=Asia/Tashkent date +%H)
 
@@ -33,16 +29,13 @@ jobs:
             echo '{ "enabled": true}' > config.json
           fi
 
-      - name: Save change
+      - name: Save
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
           git add config.json
 
-          if git diff --cached --quiet; then
-            echo "No changes"
-          else
+          if ! git diff --cached --quiet; then
             git commit -m "Automatic config update"
             git push
           fi
