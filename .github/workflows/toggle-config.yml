@@ -2,11 +2,13 @@ name: Toggle Config
 
 on:
   schedule:
-    # 08:00 по Ташкенту (03:00 UTC)
-    - cron: '0 3 * * *'
+    # Включить утром — 08:05 по Ташкенту
+    - cron: '5 8 * * *'
+      timezone: 'Asia/Tashkent'
 
-    # 16:00 по Ташкенту (11:00 UTC)
-    - cron: '0 11 * * *'
+    # Выключить вечером — 16:05 по Ташкенту
+    - cron: '5 16 * * *'
+      timezone: 'Asia/Tashkent'
 
   workflow_dispatch:
 
